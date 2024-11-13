@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="abustillosS6B.Views.vActualizarEliminar"
+             BackgroundColor="#3A6D8C">
+    
+    <VerticalStackLayout Spacing="25"
+                         Padding="25">
+        <Label 
+            Text="Actualiza o Eliminar Estudiantes"
+            FontSize="20"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Entry x:Name="txtCodigo"
+               IsReadOnly="True"
+               TextColor="#EAD8B1"/>
+
+        <Entry x:Name="txtNombre"
+               TextColor="#001F3F"/>
+        
+        <Entry x:Name="txtApellido"
+               TextColor="#001F3F"/>
+        
+        <Entry x:Name="txtEdad"
+               Keyboard="Numeric"
+               MaxLength="2"
+               TextColor="#001F3F"/>
+
+        <Grid HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnActualizar"
+                    WidthRequest="150"
+                    Text="Actuzalizar"
+                    Clicked="btnActualizar_Clicked"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="#6A9AB0"
+                    TextColor="#EAD8B1"/>
+            
+            <Button x:Name="btnEliminar"
+                    WidthRequest="150"
+                    Text="Eliminar"
+                    Clicked="btnEliminar_Clicked"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="#6A9AB0"
+                    TextColor="#EAD8B1"/>
+
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>
