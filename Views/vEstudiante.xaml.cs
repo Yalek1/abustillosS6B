@@ -6,7 +6,7 @@ namespace abustillosS6B.Views;
 
 public partial class vEstudiante : ContentPage
 {
-	private const string Url = "http://192.168.100.71/wsestudiantes/estudiante.php";
+    private const string Url = "http://192.168.100.71/wsestudiantes/estudiante.php";
 	private readonly HttpClient cliente = new HttpClient();
 	private ObservableCollection<Estudiante> estud;
 	public vEstudiante()

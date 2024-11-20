@@ -48,7 +48,7 @@
             <Button x:Name="btnEliminar"
                     WidthRequest="150"
                     Text="Eliminar"
-                    Clicked="btnEliminar_Clicked"
+                    Clicked="BtnEliminar_Clicked"
                     Grid.Row="0"
                     Grid.Column="1"
                     BackgroundColor="#6A9AB0"

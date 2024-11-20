@@ -1,6 +1,7 @@
 using abustillosS6B.Models;
 using System.Collections.Specialized;
 using System.Net;
+using System.Text;
 
 namespace abustillosS6B.Views;
 
@@ -15,23 +16,31 @@ public partial class vActualizarEliminar : ContentPage
         txtEdad.Text = datos.edad.ToString();
     }
 
-    private void btnActualizar_Clicked(object sender, EventArgs e)
+    private async void btnActualizar_Clicked(object sender, EventArgs e)
     {
         try
         {
             string url = "http://192.168.100.71/wsestudiantes/estudiante.php";
-            WebClient client = new WebClient();
-            var parametros = new NameValueCollection();
+            HttpClient client = new HttpClient();
 
-            parametros.Add("codigo", txtCodigo.Text);
-            parametros.Add("nombre", txtNombre.Text);
-            parametros.Add("apellido", txtApellido.Text);
-            parametros.Add("edad", txtEdad.Text);
-            parametros.Add("_method", "PUT"); // Indicamos que es un método PUT
+            // Crear el contenido de la solicitud en formato JSON
+            var jsonContent = new StringContent(
+                "{\"codigo\": \"" + txtCodigo.Text + "\", \"nombre\": \"" + txtNombre.Text + "\", \"apellido\": \"" + txtApellido.Text + "\", \"edad\": \"" + txtEdad.Text + "\"}",
+                Encoding.UTF8,
+                "application/json");
 
-            client.UploadValues(url, "POST", parametros); // Usamos POST
-            DisplayAlert("Actualización", "Estudiante actualizado correctamente", "OK");
-            Navigation.PushAsync(new vEstudiante());
+            // Enviar la solicitud PUT
+            var response = await client.PutAsync(url, jsonContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                DisplayAlert("Actualización", "Estudiante actualizado correctamente", "OK");
+                Navigation.PushAsync(new vEstudiante());
+            }
+            else
+            {
+                DisplayAlert("ERROR", "Error al actualizar el estudiante. Código de estado: " + response.StatusCode, "Cerrar");
+            }
         }
         catch (Exception ex)
         {
@@ -39,7 +48,7 @@ public partial class vActualizarEliminar : ContentPage
         }
     }
 
-    private void btnEliminar_Clicked(object sender, EventArgs e)
+    private void BtnEliminar_Clicked(object sender, EventArgs e)
     {
         try
         {
@@ -47,10 +56,13 @@ public partial class vActualizarEliminar : ContentPage
             WebClient client = new WebClient();
             var parametros = new NameValueCollection();
 
+            // Añadir el código y el _method para emular DELETE
             parametros.Add("codigo", txtCodigo.Text);
             parametros.Add("_method", "DELETE"); // Indicamos que es un método DELETE
 
-            client.UploadValues(url, "POST", parametros); // Usamos POST
+            // Usamos POST para emular DELETE
+            client.UploadValues(url, "POST", parametros);
+
             DisplayAlert("Eliminación", "Estudiante eliminado correctamente", "OK");
             Navigation.PushAsync(new vEstudiante());
         }
